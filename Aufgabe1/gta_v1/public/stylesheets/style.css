@@ -46,8 +46,18 @@ a {
 
 /* ### TODO ### Styles for other HTML elements */
 
-/* ... your code here ... */
-
+input{ 
+  display: block;
+  height: 40px;  
+  width: 200px;
+  margin: 7px 0 7px 0;
+}
+button{
+  display: block;
+  height: 40px;
+  width: 200px;
+  background-color: var(--background-color);
+}
 
 /* Grid styles (no changes required) */
 
@@ -109,28 +119,49 @@ a {
 
 /* ### TODO ### Styles for Header Component */
 
-/* ... your code here ... */
+.header{
+  background-color: var(--background-color);
+  align-items: center;
+  padding: 15px;
+}
+.header__image{
+  height: 60px;
+  width: 60px;
+}
+
 
 
 /* ### TODO ### Styles for Main Component */
 
-/* ... your code here ... */
+.main{
+ padding: 20px;
 
+}
 
 /* ### TODO ### Styles for Tagging component */
 
-/* ... your code here ... */
+.tagging_Field{
+  display: block;
+  padding: 15px;
+  margin: 10px 0 0 0;
+}
 
 
 /* ### TODO ### Styles for Discovery component */
 
-/* ... your code here ... */
+.discovery_Field{
+  display: block;
+  margin: 10px 0 0 0;
+  padding: 15px;
+}
 
 
 /* ### TODO ### Styles for Footer Component */
 
-/* ... your code here ... */
-
+.footer{
+  background-color: var(--background-color);
+  padding: 15px;
+}
 
 /* ### TODO ### Media Queries */
 

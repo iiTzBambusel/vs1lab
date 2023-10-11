@@ -172,7 +172,7 @@ Zur Übersicht folgen noch mal alle Anforderungen in kompakter Form als Checklis
   - [x] Platzhalter für alle Felder
 - [x] `fieldset` und `legend` zur Begrenzung des Formulars
 - [x] Für jedes Formular ein Element zum Absenden
-- [ ] Formular-Validierung
+- [x] Formular-Validierung
   - [x] Latitude und Longitude mit festen Werten
   - [x] Im Tagging-Formular: Name obligatorisch, Hashtag optional
   - [x] Namen: max. 10 Buchstaben lang
@@ -183,8 +183,8 @@ Zur Übersicht folgen noch mal alle Anforderungen in kompakter Form als Checklis
 - [ ] Layout als verschachteltes zweispaltiges Grid realisieren
   - [ ] Klassen `.row` und `.col-x` verwenden
 - [ ] Seitengestaltung
-  - [ ] Farbig abgesetzte Header- und Footer-Bereiche
-  - [ ] Vertikale Anordnung der Eingaben im Tagging Formular
+  - [x] Farbig abgesetzte Header- und Footer-Bereiche
+  - [] Vertikale Anordnung der Eingaben im Tagging Formular
   - [ ] Größere Boxen für die Eingaben aller Formulare
   - [ ] Discovery Ergebnisliste mit farbigen Boxen
 - [ ] Responsives Verhalten
