@@ -26,24 +26,33 @@
             <h2>Tagging</h2>
 
             <!-- ############### VS1Lab 1a Form 1 Start -->
+            <fieldset>
+                <legend>Tagging</legend>
             <form id="tag-form" action="/tagging" method="post">
-
-                <!-- ... your code here ... -->
-
+               <label for="latitude_In">Latitude</label> <input type="text" id="latitude_IN" placeholder="45.545433" readonly>
+                <label for="longitude_IN">Longitude</label><input type="text" id="longitude_IN" placeholder="45.545433" readonly>
+                <label for="name_IN">Name</label><input type="text" id="name_IN" placeholder="name" maxlength="10" required>
+                <label for="hashtag_IN">Hashtag</label><input type="text" id="hashtag_IN" placeholder="hashtag" pattern="^#[a-zA-Z]{1,10}">
+                <button type="submit">Create</button>
             </form>
+        </fieldset>
             <!-- ############### VS1Lab 1a Form 1 End -->
 
         </section>
 
         <section class="main__discovery discovery">
             <h2 class="discovery__title">Discovery</h2>
-
+            
             <!-- ############### VS1Lab 1a Form 2 Start -->
+            <fieldset>
+                <legend>Discovery</legend>
             <form class="discovery__search" id="discoveryFilterForm" action="/discovery" method="post">
-
-                <!-- ... your code here ... -->
-
+               <label for="searchterm">Searchterm</label> <input type="text" id="searchterm" placeholder="searchterm">
+               <label for="latitude"></label><input type="text" id="latitude" placeholder="45.545433" hidden>
+               <label for="longitude"></label><input type="text" id="longitude" placeholder="45.545433" hidden>
+                <button type="submit">Search</button>
             </form>
+        </fieldset>
             <!-- ############### VS1Lab 1a Form 2 End -->
 
             <div class="discovery__wrapper">
