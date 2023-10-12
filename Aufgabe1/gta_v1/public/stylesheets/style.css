@@ -51,12 +51,21 @@ input{
   height: 40px;  
   width: 200px;
   margin: 7px 0 7px 0;
+  border: black 1px solid;
+}
+.backGround{
+  background-color: var(--background-color);
+  border-color: var(--border-color);
 }
 button{
   display: block;
   height: 40px;
   width: 200px;
   background-color: var(--background-color);
+  border: var(--border-color) 1px solid;
+}
+legend{
+  font-weight: bold;
 }
 
 /* Grid styles (no changes required) */
@@ -144,7 +153,6 @@ button{
   display: block;
   padding: 15px;
   margin: 10px 0 20px 0;
-  
 }
 
 
@@ -154,7 +162,8 @@ button{
   display: block;
   margin: 10px 0 20px 0;
   padding: 15px;
-}
+} 
+
 
 
 /* ### TODO ### Styles for Footer Component */
@@ -162,6 +171,7 @@ button{
 .footer{
   background-color: var(--background-color);
   padding: 15px;
+  align-items: center;
 }
 
 /* ### TODO ### Media Queries */
