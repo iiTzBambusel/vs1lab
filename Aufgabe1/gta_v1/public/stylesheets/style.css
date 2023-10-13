@@ -50,10 +50,10 @@ input{
   display: block;
   height: 40px;  
   width: 200px;
-  margin: 7px 0 7px 0;
+  margin: 7px 0 15px 0;
   border: black 1px solid;
 }
-.backGround{
+#latitude_IN, #longitude_IN{
   background-color: var(--background-color);
   border-color: var(--border-color);
 }
@@ -163,7 +163,16 @@ legend{
   margin: 10px 0 20px 0;
   padding: 15px;
 } 
-
+li{
+  background-color: var(--background-color);
+  display: inline-block;
+  margin: 5px 0 5px 0;
+  padding: 5px;
+  height: 50px;
+  width: 250px;
+  border: var(--border-color) 1px solid;
+  color: var(--link-color);  
+}
 
 
 /* ### TODO ### Styles for Footer Component */
@@ -176,4 +185,8 @@ legend{
 
 /* ### TODO ### Media Queries */
 
-/* ... your code here ... */
+@media (max-width: 950px)  {
+   .row{
+    flex-direction: column;
+   }
+}

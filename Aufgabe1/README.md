@@ -180,13 +180,13 @@ Zur Übersicht folgen noch mal alle Anforderungen in kompakter Form als Checklis
 
 ### Teil B: Seite mit CSS3 gestalten
 
-- [ ] Layout als verschachteltes zweispaltiges Grid realisieren
+- [x] Layout als verschachteltes zweispaltiges Grid realisieren
   - [x] Klassen `.row` und `.col-x` verwenden
 - [ ] Seitengestaltung
   - [x] Farbig abgesetzte Header- und Footer-Bereiche
   - [x] Vertikale Anordnung der Eingaben im Tagging Formular
   - [x] Größere Boxen für die Eingaben aller Formulare
-  - [ ] Discovery Ergebnisliste mit farbigen Boxen
+  - [x] Discovery Ergebnisliste mit farbigen Boxen
 - [ ] Responsives Verhalten
   - [ ] Spalten relativ zur Bildschirmbreite anpassen
   - [ ] Ab min. Bildschirmbreite Spalten untereinander klappen
