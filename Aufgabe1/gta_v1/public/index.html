@@ -32,19 +32,19 @@
             <form id="tag-form" action="/tagging" method="post">
                 <label for="latitude_In">Latitude: </label>
                 
-                <input type="text" id="latitude_IN" class="backGround" value="45.545433" readonly>
+                <input type="text" name="latitude_IN" id="latitude_IN" class="backGround" value="45.545433" readonly>
                 
                 <label for="longitude_IN">Longitude: </label>
                 
-                <input type="text" id="longitude_IN" class="backGround" value="45.545433" readonly>
+                <input type="text" name="logitude_IN" id="longitude_IN" class="backGround" value="45.545433" readonly>
                 
                 <label for="name_IN">Name: </label>
                 
-                <input type="text" id="name_IN" placeholder="  e.G Info" maxlength="10" required>
+                <input type="text" name="name_IN" id="name_IN" placeholder="  e.G Info" maxlength="10" required>
                 
                 <label for="hashtag_IN">Hashtag: </label>
                 
-                <input type="text" id="hashtag_IN" placeholder="  e.G #IWI" pattern="^#[a-zA-Z]{1,10}">
+                <input type="text" name="hashtag_IN" id="hashtag_IN" placeholder="  e.G #IWI" pattern="^#[a-zA-Z]{1,10}">
                 
                 <button type="submit"><Strong>Add Tag</Strong></button>
             </form>
@@ -62,15 +62,15 @@
             <form class="discovery__search" id="discoveryFilterForm" action="/discovery" method="post">
                <label for="searchterm">Searchterm</label>
 
-               <input type="text" id="searchterm" placeholder="  e.G. IWI">
+               <input type="text" name="searchterm" id="searchterm" placeholder="  e.G. IWI">
                
                <label for="latitude"></label>
                
-               <input type="hidden" id="latitude">
+               <input type="hidden" name="latitude" id="latitude">
                
                <label for="longitude"></label>
                
-               <input type="hidden" id="longitude">
+               <input type="hidden" name="longitude" id="longitude">
                
                <button type="submit"><strong>Search</strong></button>
             </form>
