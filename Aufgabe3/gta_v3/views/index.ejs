@@ -34,11 +34,11 @@
             <form id="tag-form" action="/tagging" method="post">
                 <label for="latitude_In">Latitude: </label>
                 
-                <input type="text" name="latitude_IN" id="latitude_IN" class="backGround" value="45.545433" readonly>
+                <input type="text" name="latitude_IN" id="latitude_IN" class="backGround" value="<%= latitude %>" readonly>
                 
                 <label for="longitude_IN">Longitude: </label>
                 
-                <input type="text" name="logitude_IN" id="longitude_IN" class="backGround" value="45.545433" readonly>
+                <input type="text" name="logitude_IN" id="longitude_IN" class="backGround" value="<%= longitude%>" readonly>
                 
                 <label for="name_IN">Name: </label>
                 
@@ -68,11 +68,11 @@
                
                <label for="latitude"></label>
                
-               <input type="hidden" name="latitude" id="latitude">
+               <input type="hidden" name="latitude" id="latitude" value="<%= latitude%>">
                
                <label for="longitude"></label>
                
-               <input type="hidden" name="longitude" id="longitude">
+               <input type="hidden" name="longitude" id="longitude" value="<%= longitude%>">
                
                <button type="submit"><strong>Search</strong></button>
             </form>

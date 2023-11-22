@@ -41,8 +41,8 @@ const GeoTagStore = require('../models/geotag-store');
  */
 
 // TODO: extend the following route example if necessary
-router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+router.get('/', (req, res) => { //get request handeling for / als einstieg
+  res.render('index', { taglist: [],latitude: -1,longitude: -1,taglistJSON: JSON.stringify([]) })
 });
 
 /**
@@ -60,7 +60,10 @@ router.get('/', (req, res) => {
  * by radius around a given location.
  */
 
-// TODO: ... your code here ...
+router.post("/tagging", (req, res)=>{ //post request handeling for /tagging
+  InMemoryGeoTagStore.addGeoTag({"name":req.body.name, "latitude":Number(req.body.latitude), "longitude":Number(req.body.longitude), "hashtag":req.body.hashtag});
+  res.render('index', { taglist: [], latitude:Number(req.body.latitude), longitude:Number(req.body.longitude), tagListJSON: JSON.stringify([])})
+})
 
 /**
  * Route '/discovery' for HTTP 'POST' requests.
@@ -78,6 +81,11 @@ router.get('/', (req, res) => {
  * by radius and keyword.
  */
 
-// TODO: ... your code here ...
+router.post("/discovery", (req, res)=>{ //post request handeling for /discovery
+  res.render('index', { taglist: InMemoryGeoTagStore.searchNearbyGeoTags(req.body.searchterm, Number(req.body.longitude), Number(req.body.latitude)),
+                        latitude:Number(req.body.latitude), 
+                        longitude:Number(req.body.longitude),
+                        tagListJSON: JSON.stringify(InMemoryGeoTagStore.searchNearbyGeoTags(req.body.searchterm, Number(req.body.longitude), Number(req.body.latitude)))})
+})
 
 module.exports = router;
