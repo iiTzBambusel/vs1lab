@@ -11,7 +11,11 @@
  */
 class GeoTag {
 
-    // TODO: ... your code here ...
+        //Die daten die auch mit der Form aus dem HTML übergeben werden
+    latitude;
+    longitude;
+    name;
+    hashtag;
     
 }
 
