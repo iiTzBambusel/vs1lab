@@ -47,13 +47,22 @@ class LocationHelper {
         // Takes a first callback function as argument that is called in case of success.
         // Second callback is optional for handling errors.
         // These callbacks are given as arrow function expressions.
-        geoLocationApi.getCurrentPosition((location) => {
-            // Create and initialize LocationHelper object.
-            let helper = new LocationHelper(location.coords.latitude, location.coords.longitude);
-            // Pass the locationHelper object to the callback.
-            callback(helper);
-        }, (error) => {
-            alert(error.message)
-        });
+        if (document.getElementById("latitude_IN").getAttribute("value") == -1) {
+            geoLocationApi.getCurrentPosition((location) => {
+                // Create and initialize LocationHelper object.
+                
+                let helper = new LocationHelper(location.coords.latitude, location.coords.longitude);    
+                // Pass the locationHelper object to the callback.
+                callback(helper);
+            }, (error) => {
+                alert(error.message)
+            });
+                
+        }else{
+            let helper = new LocationHelper();
+            helper.#latitude = document.getElementById("latitude_IN").getAttribute("value");
+            helper.#longitude = document.getElementById("longitude_IN").getAttribute("value");
+        }
+       
     }
 }
