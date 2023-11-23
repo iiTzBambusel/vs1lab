@@ -43,7 +43,7 @@ app.use(express.urlencoded({ extended: false }));
  */
 
 // TODO: ... your code here ...
-app.use(express.static("public")); //einfügen der statischen dateien
+app.use(express.static("public")); //eine route für die statischen dateien
 // Set dedicated script for routing
 app.use('/', indexRouter);
 

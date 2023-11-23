@@ -59,9 +59,7 @@ class LocationHelper {
             });
                 
         }else{
-            let helper = new LocationHelper();
-            helper.#latitude = document.getElementById("latitude_IN").getAttribute("value");
-            helper.#longitude = document.getElementById("longitude_IN").getAttribute("value");
+            let helper = new LocationHelper(document.getElementById("latitude_IN").getAttribute("value"),document.getElementById("longitude_IN").getAttribute("value"));
         }
        
     }

@@ -25,7 +25,7 @@
  * - The proximity constrained is the same as for 'getNearbyGeoTags'.
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
-const GeoTagExamples = require("./geotag-examples"); //importiere geotag-examples datei ?
+const GeoTagExamples = require("./geotag-examples"); //importiere geotag-examples datei 
 
 class InMemoryGeoTagStore{
 
@@ -34,28 +34,28 @@ class InMemoryGeoTagStore{
         });  
 
     static addGeoTag(geoTag) {
-        this.#geoTags.push(geoTag); //das neue geotag objekt an das array anfügen
+        this.#geoTags.push(geoTag); //einen neuen geotag in das array pushen
         console.log(this.#geoTags); 
     }
     static removeGeoTag(params) {
         this.#geoTags.splice(this.#geoTags.findIndex((geoTag)=>geoTag.name===name),1)
-        //überschreibt in geotags den geotag mit dem gefundenen name mit nichts
+        //überschreibt den gefundenen geotag im array mit nichts und löscht dadurch den eintrag
     }
     static getNearbyGeoTags(latitude,longitude) {
         return this.#geoTags.filter((geoTag)=>this.#isInProximity(geoTag, latitude, longitude));
-        //gibt die geotags zurück die innerhalb bzw auf dem Kreis von 20 liegen
+        //gibt die geotags zurück welche innerhalb eines radius von "20" um die aktuelle position liegen
     }
 
     static #isInProximity(geoTag, latitude, longitude){
         var distance = Math.sqrt((Math.abs(geoTag.latitude-latitude)**2)+Math.abs(geoTag.longitude-longitude)**2);
-        return distance <=20;
-        // gibt die distanz zurück in der ein Tag inneralb bzw. auf einem kreis von 20 um den eigentlichen Tag herum liegt 
-      }    
+        return distance <=20; 
+        //returnes true if the distance between the given geotag and the current position is smaller than "20"
+    }    
 
      static searchNearbyGeoTags(keyword, longitude, latitude){
     console.log(this.getNearbyGeoTags(longitude, latitude).filter((geoTag)=>this.#testKeyword(geoTag, keyword)));
     return this.getNearbyGeoTags(longitude, latitude).filter((geoTag)=>this.#testKeyword(geoTag, keyword));
-    //gibt die Geotags zurück die im Namen bzw. im Hashtag den gesuchten Namen enthalten
+    //gibt die Geotags zurück welche den gesuchten begriff in namen oder hashtag enthalten
 }
   
   static #testKeyword(geoTag, keyword){
@@ -65,7 +65,7 @@ class InMemoryGeoTagStore{
         return true;
     }
     return false;
-    //überprüft ob im namen des Geotags oder im Hashtag der Gesuchte Name enthalten ist, wenn ja gibt er dies zurück 
+    //überprüft ob im namen oder im Hashtag des Geotags der Gesuchte begriff enthalten ist 
   }
 }
 

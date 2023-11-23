@@ -11,7 +11,7 @@
  */
 class GeoTag {
 
-        //Die daten die auch mit der Form aus dem HTML übergeben werden
+        //Die daten welche auch mit der Form aus dem HTML übergeben werden
     latitude;
     longitude;
     name;
