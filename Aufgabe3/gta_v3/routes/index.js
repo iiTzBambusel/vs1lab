@@ -30,6 +30,7 @@ const GeoTag = require('../models/geotag');
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
+const InMemoryGeoTagStore = require('../models/geotag-store');
 
 /**
  * Route '/' for HTTP 'GET' requests.
@@ -42,7 +43,7 @@ const GeoTagStore = require('../models/geotag-store');
 
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => { //get request handeling für / als einstieg
-  res.render('index', { taglist: [],latitude: -1,longitude: -1,taglistJSON: JSON.stringify([]) })
+  res.render('index', { tagist: [],latitude: -1,longitude: -1,taglistJSON: JSON.stringify([]) })
 });
 
 /**
@@ -61,8 +62,11 @@ router.get('/', (req, res) => { //get request handeling für / als einstieg
  */
 
 router.post("/tagging", (req, res)=>{ //post request handeling for /tagging
-  GeoTagStore.addGeoTag({"name":req.body.name, "latitude":Number(req.body.latitude), "longitude":Number(req.body.longitude), "hashtag":req.body.hashtag});
-  res.render('index', { taglist: [], latitude:Number(req.body.latitude), longitude:Number(req.body.longitude), taglistJSON: JSON.stringify([])})
+  console.log("req.body :", req.body);
+  console.log("req.body.latitude_IN :", req.body["latitude_IN"]);
+
+  GeoTagStore.addGeoTag({"name":req.body.name, "latitude":Number(req.body["latitude_IN"]), "longitude":Number(req.body["longitude_IN"]), "hashtag":req.body.hashtag});
+  res.render('index', { taglist: [], latitude:Number(req.body["latitude_IN"]), longitude:Number(req.body["longitude_IN"]), taglistJSON: JSON.stringify([])})
 })
 
 /**
@@ -82,6 +86,8 @@ router.post("/tagging", (req, res)=>{ //post request handeling for /tagging
  */
 
 router.post("/discovery", (req, res)=>{ //post request handeling for /discovery
+  console.log("req.body :", req.body);
+
   res.render('index', { taglist: GeoTagStore.searchNearbyGeoTags(req.body.searchterm, Number(req.body.longitude), Number(req.body.latitude)),
                         latitude:Number(req.body.latitude), 
                         longitude:Number(req.body.longitude),

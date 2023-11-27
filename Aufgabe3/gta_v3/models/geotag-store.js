@@ -28,7 +28,9 @@
 const GeoTagExamples = require("./geotag-examples"); //importiere geotag-examples datei 
 
 class InMemoryGeoTagStore{
-
+    constructor(){ } // iterieren über geotag examples 
+    
+    //funktion um die geotags als JSON mit 4 elementen zurückzugeben
     static #geoTags = GeoTagExamples.tagList.map((tag)=>{
         return{"name":tag[0], "latitude":tag[1], "longitude":tag[2], "hashtag":tag[3]}
         });  
@@ -42,18 +44,20 @@ class InMemoryGeoTagStore{
         //überschreibt den gefundenen geotag im array mit nichts und löscht dadurch den eintrag
     }
     static getNearbyGeoTags(latitude,longitude) {
+        console.log("in getnearby: ", this.#geoTags.filter((geoTag)=>this.#isInProximity(geoTag, latitude, longitude)));
         return this.#geoTags.filter((geoTag)=>this.#isInProximity(geoTag, latitude, longitude));
         //gibt die geotags zurück welche innerhalb eines radius von "20" um die aktuelle position liegen
     }
 
     static #isInProximity(geoTag, latitude, longitude){
         var distance = Math.sqrt((Math.abs(geoTag.latitude-latitude)**2)+Math.abs(geoTag.longitude-longitude)**2);
+        console.log("Distance: ", distance);
         return distance <=20; 
         //returnes true if the distance between the given geotag and the current position is smaller than "20"
     }    
 
      static searchNearbyGeoTags(keyword, longitude, latitude){
-    console.log(this.getNearbyGeoTags(longitude, latitude).filter((geoTag)=>this.#testKeyword(geoTag, keyword)));
+    //console.log(this.getNearbyGeoTags(longitude, latitude).filter((geoTag)=>this.#testKeyword(geoTag, keyword)));
     return this.getNearbyGeoTags(longitude, latitude).filter((geoTag)=>this.#testKeyword(geoTag, keyword));
     //gibt die Geotags zurück welche den gesuchten begriff in namen oder hashtag enthalten
 }
