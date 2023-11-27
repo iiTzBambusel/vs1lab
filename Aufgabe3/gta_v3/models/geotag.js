@@ -14,8 +14,8 @@ class GeoTag {
         //Die daten welche auch mit der Form aus dem HTML übergeben werden
     latitude;
     longitude;
-    name;
-    hashtag;
+    name ="";
+    hashtag = "";
     
 }
 

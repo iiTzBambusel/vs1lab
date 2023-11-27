@@ -15,12 +15,13 @@ console.log("The geoTagging script is going to start...");
  * It is called once the page has been fully loaded.
  */
 function updateLocation(location){
+    
     console.log(location);
     document.getElementById("latitude_IN").setAttribute("value",location.latitude);
     document.getElementById("longitude_IN").setAttribute("value",location.longitude);
     document.getElementById("latitude").setAttribute("value",location.latitude);
     document.getElementById("longitude").setAttribute("value",location.longitude);
-    document.getElementById("mapView").setAttribute("src",new MapManager("tBFb64lQDimgku1PUVfyJYyRdeejzfUo").getMapUrl(location.latitude,location.longitude,[],16));
+    document.getElementById("mapView").setAttribute("src",new MapManager("tBFb64lQDimgku1PUVfyJYyRdeejzfUo").getMapUrl(location.latitude,location.longitude, JSON.parse(document.getElementById("mapView").getAttribute("data-tags")),16));
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation

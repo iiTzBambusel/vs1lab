@@ -60,6 +60,7 @@ class LocationHelper {
                 
         }else{
             let helper = new LocationHelper(document.getElementById("latitude_IN").getAttribute("value"),document.getElementById("longitude_IN").getAttribute("value"));
+            callback(helper);
         }
        
     }

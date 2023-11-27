@@ -41,7 +41,7 @@ const GeoTagStore = require('../models/geotag-store');
  */
 
 // TODO: extend the following route example if necessary
-router.get('/', (req, res) => { //get request handeling for / als einstieg
+router.get('/', (req, res) => { //get request handeling für / als einstieg
   res.render('index', { taglist: [],latitude: -1,longitude: -1,taglistJSON: JSON.stringify([]) })
 });
 
