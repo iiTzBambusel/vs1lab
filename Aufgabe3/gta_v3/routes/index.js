@@ -61,8 +61,8 @@ router.get('/', (req, res) => { //get request handeling für / als einstieg
  */
 
 router.post("/tagging", (req, res)=>{ //post request handeling for /tagging
-  InMemoryGeoTagStore.addGeoTag({"name":req.body.name, "latitude":Number(req.body.latitude), "longitude":Number(req.body.longitude), "hashtag":req.body.hashtag});
-  res.render('index', { taglist: [], latitude:Number(req.body.latitude), longitude:Number(req.body.longitude), tagListJSON: JSON.stringify([])})
+  GeoTagStore.addGeoTag({"name":req.body.name, "latitude":Number(req.body.latitude), "longitude":Number(req.body.longitude), "hashtag":req.body.hashtag});
+  res.render('index', { taglist: [], latitude:Number(req.body.latitude), longitude:Number(req.body.longitude), taglistJSON: JSON.stringify([])})
 })
 
 /**
@@ -82,10 +82,10 @@ router.post("/tagging", (req, res)=>{ //post request handeling for /tagging
  */
 
 router.post("/discovery", (req, res)=>{ //post request handeling for /discovery
-  res.render('index', { taglist: InMemoryGeoTagStore.searchNearbyGeoTags(req.body.searchterm, Number(req.body.longitude), Number(req.body.latitude)),
+  res.render('index', { taglist: GeoTagStore.searchNearbyGeoTags(req.body.searchterm, Number(req.body.longitude), Number(req.body.latitude)),
                         latitude:Number(req.body.latitude), 
                         longitude:Number(req.body.longitude),
-                        tagListJSON: JSON.stringify(InMemoryGeoTagStore.searchNearbyGeoTags(req.body.searchterm, Number(req.body.longitude), Number(req.body.latitude)))})
+                        taglistJSON: JSON.stringify(GeoTagStore.searchNearbyGeoTags(req.body.searchterm, Number(req.body.longitude), Number(req.body.latitude)))})
 })
 
 module.exports = router;

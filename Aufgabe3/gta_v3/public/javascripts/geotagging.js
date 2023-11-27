@@ -21,6 +21,7 @@ function updateLocation(location){
     document.getElementById("longitude_IN").setAttribute("value",location.longitude);
     document.getElementById("latitude").setAttribute("value",location.latitude);
     document.getElementById("longitude").setAttribute("value",location.longitude);
+    console.log((document.getElementById("mapView").getAttribute("data-tags")));
     document.getElementById("mapView").setAttribute("src",new MapManager("tBFb64lQDimgku1PUVfyJYyRdeejzfUo").getMapUrl(location.latitude,location.longitude, JSON.parse(document.getElementById("mapView").getAttribute("data-tags")),16));
 }
 
