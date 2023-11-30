@@ -11,7 +11,12 @@
  */
 class GeoTag {
 
-        //Die daten welche auch mit der Form aus dem HTML übergeben werden
+    constructor(name,latitude,longitude,hashtag){
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.hashtag = hashtag;
+    }
     latitude;
     longitude;
     name ="";
