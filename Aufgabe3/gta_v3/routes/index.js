@@ -64,7 +64,6 @@ router.get('/', (req, res) => { //get request handeling für / als einstieg
 router.post("/tagging", (req, res)=>{ //post request handeling for /tagging
   console.log("req.body :", req.body);
   console.log("req.body.latitude_IN :", req.body["latitude_IN"]);
-  console.log(req.body.name);
   taglist.addGeoTag({"name":req.body["name_IN"], "latitude":Number(req.body["latitude_IN"]), "longitude":Number(req.body["longitude_IN"]), "hashtag":req.body["hashtag_IN"]});
   res.render('index', { taglist: taglist.getGeoTags(), latitude:Number(req.body["latitude_IN"]), longitude:Number(req.body["longitude_IN"]), taglistJSON: JSON.stringify(taglist.getGeoTags())})
 })

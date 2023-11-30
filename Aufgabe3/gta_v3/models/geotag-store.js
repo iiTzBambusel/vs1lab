@@ -47,13 +47,23 @@ class InMemoryGeoTagStore{
      addGeoTag(GeoTag) {
          this.#geoTags.push(GeoTag);
     }
-     removeGeoTag(params) {
-        this.#geoTags.splice(this.#geoTags.findIndex((geoTag)=>geoTag.name===name),1);
+     removeGeoTag(name) {
+        for(let i = 0; i < this.#geoTags.length; i++) {
+            if(name === this.#geoTags[i].name) {
+                this.#geoTags.splice(i);
+                break;
+            }
+        }
         //überschreibt den gefundenen geotag im array mit nichts und löscht dadurch den eintrag
     }
     getNearbyGeoTags(latitude,longitude) {
-        console.log("in getnearby: ", this.#geoTags.filter((geoTag)=>this.#isInProximity(geoTag, latitude, longitude)));
-        return this.#geoTags.filter((geoTag)=>this.#isInProximity(geoTag, latitude, longitude));
+        var result = [];
+        for (let i = 0; i < this.#geoTags.length; i++) {
+            if (this.#isInProximity(this.#geoTags[i],latitude,longitude)) {
+                result.push(this.#geoTags[i]);
+            }
+        }
+        return result;
         //gibt die geotags zurück welche innerhalb eines radius von "20" um die aktuelle position liegen
     }
 
@@ -65,9 +75,15 @@ class InMemoryGeoTagStore{
     }    
 
     searchNearbyGeoTags(keyword, longitude, latitude){
-    //console.log(this.getNearbyGeoTags(longitude, latitude).filter((geoTag)=>this.#testKeyword(geoTag, keyword)));
-    return this.getNearbyGeoTags(longitude, latitude).filter((geoTag)=>this.#testKeyword(geoTag, keyword));
+    
     //gibt die Geotags zurück welche den gesuchten begriff in namen oder hashtag enthalten
+        var results = [];
+        for (let i = 0; i < this.#geoTags.length ; i++) {
+            if (this.#testKeyword(this.#geoTags[i],keyword)&&this.#isInProximity(this.#geoTags[i],latitude,longitude)) {
+                results.push(this.#geoTags[i]);
+            }
+        }
+        return results;
 }
   
     #testKeyword(geoTag, keyword){
