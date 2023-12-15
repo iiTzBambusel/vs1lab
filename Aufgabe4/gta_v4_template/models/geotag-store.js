@@ -37,8 +37,9 @@ class InMemoryGeoTagStore{
         }
 
         }
-     
-    
+
+        //App Zugriff\\
+
     //funktion um die geotags als JSON mit 4 elementen zurückzugeben
     getGeoTags(){
         return this.#geoTags;
@@ -84,7 +85,7 @@ class InMemoryGeoTagStore{
             }
         }
         return results;
-}
+}   
   
     #testKeyword(geoTag, keyword){
     if (geoTag.name.includes(keyword)){
@@ -95,6 +96,34 @@ class InMemoryGeoTagStore{
     return false;
     //überprüft ob im namen oder im Hashtag des Geotags der Gesuchte begriff enthalten ist 
   }
+  //Api Zugriff\\
+  searchGeoTags(keyword){
+    
+    //gibt die Geotags zurück welche den gesuchten begriff in namen oder hashtag enthalten
+        var results = [];
+        for (let i = 0; i < this.#geoTags.length ; i++) {
+            if (this.#testKeyword(this.#geoTags[i],keyword)) {
+                results.push(this.#geoTags[i]);
+            }
+        }
+        return results;
+}
+searchGeoTagsID(id){
+
+    for (let i = 0; i < this.#geoTags.length ; i++) {
+        if (this.#geoTags[i].id == id) {
+            return this.#geoTags[i];
+        }
+    }
+}
+addGeoTagID(geoTag){
+    let name = geoTag.name;
+    let latitude = geoTag.latitude;
+    let longitude = geoTag.longitude;
+    let hashtag = geoTag.hashtag;
+    this.#geoTags.push(new GeoTag(name,latitude,longitude,hashtag))
+}
+
 }
 
 

@@ -1,0 +1,16 @@
+GET http://localhost:3000/api/geotags
+
+###
+
+POST http://localhost:3000/api/geotags
+content-type: application/json
+
+{
+  "latitude": 49.04454,
+  "longitude": 8.51149,
+  "name": "test",
+  "hashtag": "#test"
+}
+###
+
+GET http://localhost:3000/api/geotags/11

@@ -106,7 +106,27 @@ router.post("/discovery", (req, res)=>{ //post request handeling for /discovery
  * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
  */
 
-// TODO: ... your code here ...
+router.get("/api/geotags",(req,res)=>{
+  let seachtearm = req.query.seachtearm;
+  let latitude = req.query.latitude;
+  let longitude = req.query.longitude;
+  let seachedWithTermAndPos = [];
+  let searchedWithTerm = [];
+  if (seachtearm === undefined && latitude === undefined && longitude === undefined) {
+      return res.json(taglist.getGeoTags()); //return weil sonst auch die anderen abfragen durchgeführt werden würden
+  }
+  searchedWithTerm = taglist.searchGeoTags(seachtearm); //searchGeoTags sucht genauso wie searchNearbyGeotags nur ohne auf die aktuelle position zu achten
+  if (searchedWithTerm.length === 0) {
+    return res.json(taglist.getGeoTags());
+  }
+
+  if (latitude !== null && longitude !== null) {
+      seachedWithTermAndPos = taglist.searchNearbyGeoTags(seachtearm,longitude,latitude);
+  }else{
+      seachedWithTermAndPos = searchedWithTerm;
+  }
+   res.json(seachedWithTermAndPos);
+})
 
 
 /**
@@ -120,7 +140,23 @@ router.post("/discovery", (req, res)=>{ //post request handeling for /discovery
  * The new resource is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
+router.post("/api/geotags",(req,res)=>{
+  let GeoTag = req.body;
+  let latitude = GeoTag.latitude;
+  let longitude = GeoTag.longitude;
+  let name = GeoTag.name;
+  let hashtag = GeoTag.hashtag;
+  //Geotag hinzufügen mit id
+  taglist.addGeoTagID({"name":name,"latitude":latitude,"longitude":longitude,"hashtag":hashtag});
+  //response 
+  let tags = taglist.getGeoTags();
+  let lastTag = tags[tags.length -1];
+  let responseHead = "http://localhost:3000/api/geotags/";
+  responseHead += lastTag.id;
+  res.header("Location",responseHead);
+  res.json(lastTag);
+})
+
 
 
 /**
@@ -133,7 +169,11 @@ router.post("/discovery", (req, res)=>{ //post request handeling for /discovery
  * The requested tag is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
+router.get("/api/geotags/:id",(req,res)=>{
+  let id = req.params.id;
+  let searchedByID = taglist.searchGeoTagsID(id);
+  res.send(JSON.stringify(searchedByID))
+})
 
 
 /**
