@@ -70,7 +70,7 @@ class InMemoryGeoTagStore{
     #isInProximity(geoTag, latitude, longitude){
         var distance = Math.sqrt((Math.abs(geoTag.latitude-latitude)**2)+Math.abs(geoTag.longitude-longitude)**2);
         console.log("Distance: ", distance);
-        return distance <=20; 
+        return distance <=20;
         //returnes true if the distance between the given geotag and the current position is smaller than "20"
     }    
 

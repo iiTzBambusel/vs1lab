@@ -50,7 +50,6 @@ class LocationHelper {
         if (document.getElementById("latitude_IN").getAttribute("value") == -1) {
             geoLocationApi.getCurrentPosition((location) => {
                 // Create and initialize LocationHelper object.
-                console.log("findlocation; if statement");
                 let helper = new LocationHelper(location.coords.latitude, location.coords.longitude);    
                 // Pass the locationHelper object to the callback.
                 callback(helper);
@@ -60,7 +59,6 @@ class LocationHelper {
                 
         }else{
             let helper = new LocationHelper(document.getElementById("latitude_IN").getAttribute("value"),document.getElementById("longitude_IN").getAttribute("value"));
-            console.log("findlocation; else statement");
 
             callback(helper);
         }
