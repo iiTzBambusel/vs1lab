@@ -123,6 +123,26 @@ addGeoTagID(geoTag){
     let hashtag = geoTag.hashtag;
     this.#geoTags.push(new GeoTag(name,latitude,longitude,hashtag))
 }
+#getIndex(id){
+    let index = 0;
+    while (index < this.#geoTags.length) {
+        if (this.#geoTags[index].id === id) {
+          return index;
+        }
+        index++;
+      }
+      
+    
+}
+changeGeoTag(geoTag,name,latitude,longitude,hashtag){
+var index = this.#getIndex(geoTag.id);
+console.log(index);
+this.#geoTags[index].name = name;
+console.log("changeGeoTag");
+this.#geoTags[index].latitude = latitude;
+this.#geoTags[index].longitude = longitude;
+this.#geoTags[index].hashtag = hashtag;
+}
 
 }
 

@@ -190,7 +190,19 @@ router.get("/api/geotags/:id",(req,res)=>{
  * The updated resource is rendered as JSON in the response. 
  */
 
-// TODO: ... your code here ...
+router.put("/api/geotags/:id",(req,res)=>{
+  let id = req.params.id;
+  let name = req.body["name"];
+  let latitude = req.body["latitude"];
+  let longitude = req.body["longitude"];
+  let hashtag = req.body["hashtag"]
+  console.log("router"+ name);
+  let searchedGeoTag = taglist.searchGeoTagsID(id);
+  taglist.changeGeoTag(searchedGeoTag,name,latitude,longitude,hashtag);
+  searchedGeoTag = taglist.searchGeoTagsID(id);
+  res.json(searchedGeoTag);
+
+})
 
 
 /**
@@ -204,6 +216,14 @@ router.get("/api/geotags/:id",(req,res)=>{
  * The deleted resource is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
+router.delete("/api/geotags/:id",(req,res)=>{
+  let id = req.params.id;
+
+  let geoTagToDelete = taglist.searchGeoTagsID(id);
+
+  taglist.removeGeoTag(geoTagToDelete.name);
+
+  res.json(geoTagToDelete);
+})
 
 module.exports = router;
