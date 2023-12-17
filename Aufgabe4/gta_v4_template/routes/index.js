@@ -107,25 +107,29 @@ router.post("/discovery", (req, res)=>{ //post request handeling for /discovery
  */
 
 router.get("/api/geotags",(req,res)=>{
+  //gets the latitude,longitude and searchterm from the request querry
   let seachtearm = req.query.seachtearm;
   let latitude = req.query.latitude;
   let longitude = req.query.longitude;
+
+   
   let seachedWithTermAndPos = [];
   let searchedWithTerm = [];
   if (seachtearm === undefined && latitude === undefined && longitude === undefined) {
-      return res.json(taglist.getGeoTags()); //return weil sonst auch die anderen abfragen durchgeführt werden würden
+      return res.json(taglist.getGeoTags()); //returns the respone of the whole taglist in json format
   }
-  searchedWithTerm = taglist.searchGeoTags(seachtearm); //searchGeoTags sucht genauso wie searchNearbyGeotags nur ohne auf die aktuelle position zu achten
+  //searches for the searchterm if added in the query 
+  searchedWithTerm = taglist.searchGeoTags(seachtearm); 
   if (searchedWithTerm.length === 0) {
     return res.json(taglist.getGeoTags());
   }
-
+  //if latitude and longitude are given the already filtered array will be filterd again for latitude and longitude
   if (latitude !== null && longitude !== null) {
       seachedWithTermAndPos = taglist.searchNearbyGeoTags(seachtearm,longitude,latitude);
   }else{
-      seachedWithTermAndPos = searchedWithTerm;
+      seachedWithTermAndPos = searchedWithTerm; //if latitude and or longitude arent given the array only filtered by searchterm is returned
   }
-   res.json(seachedWithTermAndPos);
+   res.json(seachedWithTermAndPos); //returnes the searched array in json format
 })
 
 
@@ -141,20 +145,22 @@ router.get("/api/geotags",(req,res)=>{
  */
 
 router.post("/api/geotags",(req,res)=>{
-  let GeoTag = req.body;
+  //gets the geotag from the request body
+  let GeoTag = req.body; 
   let latitude = GeoTag.latitude;
   let longitude = GeoTag.longitude;
   let name = GeoTag.name;
   let hashtag = GeoTag.hashtag;
-  //Geotag hinzufügen mit id
-  taglist.addGeoTagID({"name":name,"latitude":latitude,"longitude":longitude,"hashtag":hashtag});
-  //response 
-  let tags = taglist.getGeoTags();
-  let lastTag = tags[tags.length -1];
+  
+  //adds the geotag to "taglist"
+  taglist.addGeoTagID({"name":name,"latitude":latitude,"longitude":longitude,"hashtag":hashtag}); //the id is handeled in geotag.js
+  
+  let tags = taglist.getGeoTags(); //gets the full array of tags
+  let lastTag = tags[tags.length -1]; //gets the last geotag in the array wich is the newest geotag
   let responseHead = "http://localhost:3000/api/geotags/";
-  responseHead += lastTag.id;
-  res.header("Location",responseHead);
-  res.json(lastTag);
+  responseHead += lastTag.id; //combines the address with the newest id to return in the head
+  res.header("Location",responseHead); // returns the address to the new geotag
+  res.json(lastTag); // returns the new geotag in json format
 })
 
 
@@ -170,9 +176,10 @@ router.post("/api/geotags",(req,res)=>{
  */
 
 router.get("/api/geotags/:id",(req,res)=>{
-  let id = req.params.id;
-  let searchedByID = taglist.searchGeoTagsID(id);
-  res.send(JSON.stringify(searchedByID))
+  let id = req.params.id; //gets the id from the query parameters
+  
+  let searchedByID = taglist.searchGeoTagsID(id); // searches in taglist for the geotag with matching id
+  res.send(JSON.stringify(searchedByID)) //returns the found geotag in json format
 })
 
 
@@ -191,15 +198,25 @@ router.get("/api/geotags/:id",(req,res)=>{
  */
 
 router.put("/api/geotags/:id",(req,res)=>{
-  let id = req.params.id;
-  let name = req.body["name"];
+  // gets the id from the query parameters
+  let id = req.params.id; 
+  
+  //gets the name,latitude,longitude and hashtag from the request body
+  let name = req.body["name"];  
   let latitude = req.body["latitude"];
   let longitude = req.body["longitude"];
   let hashtag = req.body["hashtag"]
-  console.log("router"+ name);
+  
+  //searches for the geotag with matching id
   let searchedGeoTag = taglist.searchGeoTagsID(id);
+  
+  //changes the found geotag in "taglist"
   taglist.changeGeoTag(searchedGeoTag,name,latitude,longitude,hashtag);
+  
+  //gets the updated geotag from "taglist"
   searchedGeoTag = taglist.searchGeoTagsID(id);
+  
+  //returns the changed geotag in json format
   res.json(searchedGeoTag);
 
 })
@@ -217,13 +234,13 @@ router.put("/api/geotags/:id",(req,res)=>{
  */
 
 router.delete("/api/geotags/:id",(req,res)=>{
-  let id = req.params.id;
+  let id = req.params.id; // get the id parameter from the request
 
-  let geoTagToDelete = taglist.searchGeoTagsID(id);
+  let geoTagToDelete = taglist.searchGeoTagsID(id); // searches the geotag to delete
 
-  taglist.removeGeoTag(geoTagToDelete.name);
+  taglist.removeGeoTag(geoTagToDelete.name); //deletes the found geotag
 
-  res.json(geoTagToDelete);
+  res.json(geoTagToDelete); //returns the deleted geotag in json format
 })
 
 module.exports = router;

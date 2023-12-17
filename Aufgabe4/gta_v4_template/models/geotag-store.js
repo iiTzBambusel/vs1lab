@@ -96,6 +96,7 @@ class InMemoryGeoTagStore{
     return false;
     //überprüft ob im namen oder im Hashtag des Geotags der Gesuchte begriff enthalten ist 
   }
+  
   //Api Zugriff\\
   searchGeoTags(keyword){
     
@@ -108,7 +109,7 @@ class InMemoryGeoTagStore{
         }
         return results;
 }
-searchGeoTagsID(id){
+searchGeoTagsID(id){ //iterates over the array of geotags and returns the geotag with matching id
 
     for (let i = 0; i < this.#geoTags.length ; i++) {
         if (this.#geoTags[i].id == id) {
@@ -116,14 +117,14 @@ searchGeoTagsID(id){
         }
     }
 }
-addGeoTagID(geoTag){
+addGeoTagID(geoTag){ //adds a new geotag using the geotag constructor to handle the Id attribute
     let name = geoTag.name;
     let latitude = geoTag.latitude;
     let longitude = geoTag.longitude;
     let hashtag = geoTag.hashtag;
     this.#geoTags.push(new GeoTag(name,latitude,longitude,hashtag))
 }
-#getIndex(id){
+#getIndex(id){ //searches for the index of a geotag with matching id and returns it
     let index = 0;
     while (index < this.#geoTags.length) {
         if (this.#geoTags[index].id === id) {
@@ -134,11 +135,10 @@ addGeoTagID(geoTag){
       
     
 }
-changeGeoTag(geoTag,name,latitude,longitude,hashtag){
+changeGeoTag(geoTag,name,latitude,longitude,hashtag){ //overrides the name,latitude,longitude and hashtag attribute of an geotag
 var index = this.#getIndex(geoTag.id);
 console.log(index);
 this.#geoTags[index].name = name;
-console.log("changeGeoTag");
 this.#geoTags[index].latitude = latitude;
 this.#geoTags[index].longitude = longitude;
 this.#geoTags[index].hashtag = hashtag;
