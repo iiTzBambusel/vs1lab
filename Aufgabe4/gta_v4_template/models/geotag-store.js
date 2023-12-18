@@ -102,8 +102,9 @@ class InMemoryGeoTagStore{
     
     //gibt die Geotags zurück welche den gesuchten begriff in namen oder hashtag enthalten
         var results = [];
-        for (let i = 0; i < this.#geoTags.length ; i++) {
-            if (this.#testKeyword(this.#geoTags[i],keyword)) {
+               for (let i = 0; i < this.#geoTags.length ; i++) {
+            var name = this.#geoTags[i].name; // get the name of the current geotag
+            if (name.includes(keyword)) { //test if name includes the keyword
                 results.push(this.#geoTags[i]);
             }
         }

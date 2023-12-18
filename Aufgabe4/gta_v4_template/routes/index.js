@@ -108,23 +108,23 @@ router.post("/discovery", (req, res)=>{ //post request handeling for /discovery
 
 router.get("/api/geotags",(req,res)=>{
   //gets the latitude,longitude and searchterm from the request querry
-  let seachtearm = req.query.seachtearm;
+  let seachtearm = req.query["searchterm"];
   let latitude = req.query.latitude;
   let longitude = req.query.longitude;
 
-   
-  let seachedWithTermAndPos = [];
-  let searchedWithTerm = [];
+  
+  let searchedWithTerm ;
   if (seachtearm === undefined && latitude === undefined && longitude === undefined) {
-      return res.json(taglist.getGeoTags()); //returns the respone of the whole taglist in json format
+    return res.json(taglist.getGeoTags()); //returns the respone of the whole taglist in json format
   }
   //searches for the searchterm if added in the query 
   searchedWithTerm = taglist.searchGeoTags(seachtearm); 
   if (searchedWithTerm.length === 0) {
     return res.json(taglist.getGeoTags());
   }
+  let seachedWithTermAndPos;
   //if latitude and longitude are given the already filtered array will be filterd again for latitude and longitude
-  if (latitude !== null && longitude !== null) {
+  if (latitude !== undefined && longitude !== undefined) {
       seachedWithTermAndPos = taglist.searchNearbyGeoTags(seachtearm,longitude,latitude);
   }else{
       seachedWithTermAndPos = searchedWithTerm; //if latitude and or longitude arent given the array only filtered by searchterm is returned
