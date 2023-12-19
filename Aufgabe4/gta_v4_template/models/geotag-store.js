@@ -104,7 +104,8 @@ class InMemoryGeoTagStore{
         var results = [];
                for (let i = 0; i < this.#geoTags.length ; i++) {
             var name = this.#geoTags[i].name; // get the name of the current geotag
-            if (name.includes(keyword)) { //test if name includes the keyword
+            var hashtag = this.#geoTags[i].hashtag;
+            if (name.includes(keyword) || hashtag.includes(keyword)) { //test if name includes the keyword
                 results.push(this.#geoTags[i]);
             }
         }
