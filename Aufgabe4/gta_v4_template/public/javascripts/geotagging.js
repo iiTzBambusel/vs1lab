@@ -83,6 +83,18 @@ function fetchTaggingGeoTags() {
 
 document.getElementById("taggingButton").addEventListener("click",(e)=>{
     e.preventDefault();
+    if (document.getElementById("name_IN").value === "") {
+        alert("Please enter a name for the geoTag.");
+        return;
+      }
+    if (document.getElementById("hashtag_IN").value !== "") {
+     
+        let pattern = new RegExp(/^#[a-zA-Z]{1,10}$/);
+        if (!pattern.test(document.getElementById("hashtag_IN").value)) {
+          alert("Please enter a valid hashtag for the geoTag.");
+          return;
+        }   
+    }
     let geoTag = {
         name: document.getElementById("name_IN").value,
         latitude: document.getElementById("latitude_IN").getAttribute("value"),
