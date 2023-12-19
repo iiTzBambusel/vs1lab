@@ -1,5 +1,6 @@
 // File origin: VS1LAB A2
 
+//const { application } = require("express");
 /* eslint-disable no-unused-vars */
 
 // This script is executed when the browser loads index.html.
@@ -14,6 +15,7 @@ console.log("The geoTagging script is going to start...");
  * A function to retrieve the current location and update the page.
  * It is called once the page has been fully loaded.
  */
+
 function updateLocation(location){
     
     console.log(location);
@@ -23,6 +25,89 @@ function updateLocation(location){
     document.getElementById("longitude").setAttribute("value",location.longitude);
     document.getElementById("mapView").setAttribute("src",new MapManager("tBFb64lQDimgku1PUVfyJYyRdeejzfUo").getMapUrl(location.latitude,location.longitude, JSON.parse(document.getElementById("mapView").getAttribute("data-tags")),16));
 }
+
+function fetchDiscoveryGeoTags() {
+    fetch('http://localhost:3000/api/geotags/?' + new URLSearchParams({
+        'searchterm': document.getElementById('searchterm').value,
+        'longitude': document.getElementById('longitude').getAttribute('value'),
+        'latitude': document.getElementById('latitude').getAttribute('value'),
+    }), {
+        method: 'GET',
+    })
+    .then(res => res.json())
+    .then(geoTags =>{
+        let list = document.getElementById("discoveryResults");
+        list.innerHTML = "";
+        for (let geoTag of geoTags) {
+            var entry = document.createElement("li");
+            entry.appendChild(document.createTextNode(
+                geoTag.name +"("
+                + geoTag.latitude + ","
+                + geoTag.longitude +")"
+                + geoTag.hashtag));
+            list.appendChild(entry);
+        }
+        document.getElementById("mapView").setAttribute("src",new MapManager("tBFb64lQDimgku1PUVfyJYyRdeejzfUo")
+        .getMapUrl(document.getElementById("latitude_IN").getAttribute("value"),
+                   document.getElementById("longitude_IN").getAttribute("value"), geoTags,16));
+    })
+    document.getElementById("name_IN").value = "";
+    document.getElementById("hashtag_IN").value = "";
+    document.getElementById("searchterm").value = "";
+}
+function fetchTaggingGeoTags() {
+    fetch('http://localhost:3000/api/geotags', {
+        method: 'GET',
+    })
+    .then(res => res.json())
+    .then(geoTags =>{
+        let list = document.getElementById("discoveryResults");
+        list.innerHTML = "";
+        for (let geoTag of geoTags) {
+            var entry = document.createElement("li");
+            entry.appendChild(document.createTextNode(
+                geoTag.name +"("
+                + geoTag.latitude + ","
+                + geoTag.longitude +")"
+                + geoTag.hashtag));
+            list.appendChild(entry);
+        }
+        document.getElementById("mapView").setAttribute("src",new MapManager("tBFb64lQDimgku1PUVfyJYyRdeejzfUo")
+        .getMapUrl(document.getElementById("latitude_IN").getAttribute("value"),
+                   document.getElementById("longitude_IN").getAttribute("value"), geoTags,16));
+    })
+    document.getElementById("name_IN").value = "";
+    document.getElementById("hashtag_IN").value = "";
+    document.getElementById("searchterm").value = "";
+}
+
+document.getElementById("taggingButton").addEventListener("click",(e)=>{
+    e.preventDefault();
+    let geoTag = {
+        name: document.getElementById("name_IN").value,
+        latitude: document.getElementById("latitude_IN").getAttribute("value"),
+        longitude: document.getElementById("longitude_IN").getAttribute("value"),
+        hashtag: document.getElementById("hashtag_IN").value
+    };
+
+   fetch("http://localhost:3000/api/geotags",{
+        method: "POST",
+        body: JSON.stringify(geoTag),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }).then(_ =>{
+            fetchTaggingGeoTags();
+    })
+});
+
+    document.getElementById("discoveryButton").addEventListener("click",(e) =>{
+        e.preventDefault();
+        fetchDiscoveryGeoTags();
+        
+    });
+
+    
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
