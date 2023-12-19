@@ -26,7 +26,16 @@ content-type: application/json
   "name": "changedTest",
   "hashtag": "#changedTest"
 }
+###
+
+GET http://localhost:3000/api/geotags/11
 
 ###
+
+###
+
 DELETE http://localhost:3000/api/geotags/11
 
+###
+
+GET http://localhost:3000/api/geotags/

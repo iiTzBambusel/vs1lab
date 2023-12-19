@@ -129,10 +129,10 @@ Zur Übersicht folgen noch mal alle Anforderungen in kompakter Form als Checklis
 
 ### 2. Teilaufgabe: Client-Erweiterung
 
-- [ ] **Formularauswertung** ändern
+- [x] **Formularauswertung** ändern
   - [x] **Event-Listener** für beide Formulare registrieren
   - [x] **Absenden** der Formulare verhindern
-  - [ ] **Formular-Validierung** bleibt erhalten
+  - [x] **Formular-Validierung** bleibt erhalten
 - [x] **AJAX-Aufrufe** per **Fetch API** hinzufügen
   - [x] Aufruf im **Tagging Formular** *asynchron*
     - [x] *HTTP POST* mit Body in *JSON Format*
