@@ -23,10 +23,11 @@ function updateLocation(location){
     document.getElementById("longitude_IN").setAttribute("value",location.longitude);
     document.getElementById("latitude").setAttribute("value",location.latitude);
     document.getElementById("longitude").setAttribute("value",location.longitude);
-    document.getElementById("mapView").setAttribute("src",new MapManager("tBFb64lQDimgku1PUVfyJYyRdeejzfUo").getMapUrl(location.latitude,location.longitude, JSON.parse(document.getElementById("mapView").getAttribute("data-tags")),16));
+    document.getElementById("mapView").setAttribute("src",new MapManager("tBFb64lQDimgku1PUVfyJYyRdeejzfUo").getMapUrl(location.latitude,location.longitude, JSON.parse(document.getElementById("mapView").getAttribute("data-tags")),14));
 }
 
-function fetchDiscoveryGeoTags() {
+function fetchGeoTags() {
+    //Send an asynchronous GET request to the server
     fetch('http://localhost:3000/api/geotags/?' + new URLSearchParams({
         'searchterm': document.getElementById('searchterm').value,
         'longitude': document.getElementById('longitude').getAttribute('value'),
@@ -34,55 +35,37 @@ function fetchDiscoveryGeoTags() {
     }), {
         method: 'GET',
     })
-    .then(res => res.json())
+    .then(res => res.json()) //if the response is in json format res.json will convert the response to an js object
     .then(geoTags =>{
-        let list = document.getElementById("discoveryResults");
-        list.innerHTML = "";
-        for (let geoTag of geoTags) {
-            var entry = document.createElement("li");
+        let list = document.getElementById("discoveryResults"); 
+        list.innerHTML = ""; //Clear discovery results list
+        
+        //create new discovery results list 
+        for (let geoTag of geoTags) { //iterate over the geoTags objects 
+            var entry = document.createElement("li"); //for every geotag create a new li element
             entry.appendChild(document.createTextNode(
                 geoTag.name +"("
                 + geoTag.latitude + ","
                 + geoTag.longitude +")"
                 + geoTag.hashtag));
+            //add li elements to the discovery results list
             list.appendChild(entry);
         }
+        //update the map with geoTags from the fetch response 
         document.getElementById("mapView").setAttribute("src",new MapManager("tBFb64lQDimgku1PUVfyJYyRdeejzfUo")
         .getMapUrl(document.getElementById("latitude_IN").getAttribute("value"),
-                   document.getElementById("longitude_IN").getAttribute("value"), geoTags,16));
+                   document.getElementById("longitude_IN").getAttribute("value"), geoTags,14));
     })
-    document.getElementById("name_IN").value = "";
-    document.getElementById("hashtag_IN").value = "";
-    document.getElementById("searchterm").value = "";
-}
-function fetchTaggingGeoTags() {
-    fetch('http://localhost:3000/api/geotags', {
-        method: 'GET',
-    })
-    .then(res => res.json())
-    .then(geoTags =>{
-        let list = document.getElementById("discoveryResults");
-        list.innerHTML = "";
-        for (let geoTag of geoTags) {
-            var entry = document.createElement("li");
-            entry.appendChild(document.createTextNode(
-                geoTag.name +"("
-                + geoTag.latitude + ","
-                + geoTag.longitude +")"
-                + geoTag.hashtag));
-            list.appendChild(entry);
-        }
-        document.getElementById("mapView").setAttribute("src",new MapManager("tBFb64lQDimgku1PUVfyJYyRdeejzfUo")
-        .getMapUrl(document.getElementById("latitude_IN").getAttribute("value"),
-                   document.getElementById("longitude_IN").getAttribute("value"), geoTags,16));
-    })
+    //clear the input fields values
     document.getElementById("name_IN").value = "";
     document.getElementById("hashtag_IN").value = "";
     document.getElementById("searchterm").value = "";
 }
 
 document.getElementById("taggingButton").addEventListener("click",(e)=>{
+    //prevention of submitting the from
     e.preventDefault();
+    //Check for empty or false inputs for name and hashtag (form validation)
     if (document.getElementById("name_IN").value === "") {
         alert("Please enter a name for the geoTag.");
         return;
@@ -95,13 +78,14 @@ document.getElementById("taggingButton").addEventListener("click",(e)=>{
           return;
         }   
     }
+    //create a geoTag object using the information given in the form elements
     let geoTag = {
         name: document.getElementById("name_IN").value,
         latitude: document.getElementById("latitude_IN").getAttribute("value"),
         longitude: document.getElementById("longitude_IN").getAttribute("value"),
         hashtag: document.getElementById("hashtag_IN").value
     };
-
+    //// Send an asynchronous POST request to the server
    fetch("http://localhost:3000/api/geotags",{
         method: "POST",
         body: JSON.stringify(geoTag),
@@ -109,13 +93,16 @@ document.getElementById("taggingButton").addEventListener("click",(e)=>{
             "Content-Type": "application/json",
         }
     }).then(_ =>{
-            fetchTaggingGeoTags();
+        // After the request is completed, update the geotags list
+        fetchGeoTags();
     })
 });
 
     document.getElementById("discoveryButton").addEventListener("click",(e) =>{
-        e.preventDefault();
-        fetchDiscoveryGeoTags();
+        //prevention of submitting the from
+        e.preventDefault(); 
+        //update the geotag list
+        fetchGeoTags();
         
     });
 

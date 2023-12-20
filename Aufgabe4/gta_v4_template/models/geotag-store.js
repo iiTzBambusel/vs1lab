@@ -65,15 +65,30 @@ class InMemoryGeoTagStore{
             }
         }
         return result;
-        //gibt die geotags zurück welche innerhalb eines radius von "20" um die aktuelle position liegen
     }
 
-    #isInProximity(geoTag, latitude, longitude){
-        var distance = Math.sqrt((Math.abs(geoTag.latitude-latitude)**2)+Math.abs(geoTag.longitude-longitude)**2);
-        console.log("Distance: ", distance);
-        return distance <=20;
-        //returnes true if the distance between the given geotag and the current position is smaller than "20"
-    }    
+    #isInProximity(geoTag, latitude, longitude) {
+        // Calculate the difference between the geotag's latitude and the current user's latitude
+        var latDifference = geoTag.latitude - latitude;
+        // Calculate the difference between the geotag's longitude and the current user's longitude
+        var lonDifference = geoTag.longitude - longitude;
+      
+        // Convert the latitude and longitude differences to radians
+        latDifference = latDifference * Math.PI / 180;
+        lonDifference = lonDifference * Math.PI / 180;
+      
+        // Calculate the Haversine distance
+        // using the formula to account for the Earth's curvature
+        var a = Math.sin(latDifference / 2) * Math.sin(latDifference / 2)
+          + Math.cos(latitude * Math.PI / 180) * Math.cos(geoTag.latitude * Math.PI / 180)
+          * Math.sin(lonDifference / 2) * Math.sin(lonDifference / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var radius = 6371000; // Earth's radius in meters
+        var distance = radius * c;
+      
+        // Check if the distance is within the specified proximity (20 kilometers)
+        return distance <= 20000;
+      }   
 
     searchNearbyGeoTags(keyword, longitude, latitude){
     

@@ -239,13 +239,17 @@ router.put("/api/geotags/:id",(req,res)=>{
  */
 
 router.delete("/api/geotags/:id",(req,res)=>{
-  let id = req.params.id; // get the id parameter from the request
+  // get the id parameter from the request
+  let id = req.params.id; 
 
-  let geoTagToDelete = taglist.searchGeoTagsID(id); // searches the geotag to delete
+  // searches and saves the geotag to delete
+  let geoTagToDelete = taglist.searchGeoTagsID(id); 
 
-  taglist.removeGeoTag(geoTagToDelete.name); //deletes the found geotag
+   //deletes the found geotag
+  taglist.removeGeoTag(geoTagToDelete.name);
 
-  res.json(geoTagToDelete); //returns the deleted geotag in json format
+  //returns the deleted geotag in json format
+  res.json(geoTagToDelete); 
 })
 
 module.exports = router;
